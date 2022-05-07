@@ -20,9 +20,9 @@ class App extends React.Component {
       important: Math.random() > 0.5,
       id: this.state.notes.length + 1,
     }
-    noteService.create(noteObject).then((response) => {
+    noteService.create(noteObject).then((newNote) => {
       this.setState({
-        notes: this.state.notes.concat(response.data),
+        notes: this.state.notes.concat(newNote),
         newNotes: '',
       })
     })
@@ -43,10 +43,10 @@ class App extends React.Component {
     return () => {
       const note = this.state.notes.find((n) => n.id === id)
       const changedNote = { ...note, important: !note.important }
-      noteService.update(id, changedNote).then((response) => {
+      noteService.update(id, changedNote).then((changedNote) => {
         this.setState({
           notes: this.state.notes.map((note) =>
-            note.id !== id ? note : response.data
+            note.id !== id ? note : changedNote
           ),
         })
       })
@@ -84,7 +84,7 @@ class App extends React.Component {
   }
   componentDidMount() {
     noteService.getAll().then((response) => {
-      this.setState({ notes: response.data })
+      this.setState({ notes: response })
     })
   }
 }
