@@ -1,6 +1,5 @@
 import React from 'react'
 import Note from './components/Note'
-import axios from 'axios'
 import noteService from './services/notes'
 
 class App extends React.Component {
