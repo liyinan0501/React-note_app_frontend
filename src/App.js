@@ -52,6 +52,17 @@ class App extends React.Component {
     }
   }
 
+  delNote = (id) => {
+    return () => {
+      window.confirm('Are you sure want to delete') &&
+        noteService.deleteNote(id).then(() => {
+          this.setState({
+            notes: this.state.notes.filter((person) => person.id !== id),
+          })
+        })
+    }
+  }
+
   render() {
     console.log('render')
     const notesToShow = this.state.showAll
@@ -71,6 +82,7 @@ class App extends React.Component {
               key={note.id}
               note={note}
               toggleImportance={this.toggleImportanceOf(note.id)}
+              delNote={this.delNote(note.id)}
             />
           ))}
         </ul>
